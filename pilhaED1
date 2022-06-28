@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define N 50
+
+typedef struct pilha{
+    float info[N];
+    int n ;
+}Pilha;
+
+Pilha* criaPilha(){
+    Pilha *p= (Pilha*)malloc(sizeof(Pilha));
+    p->n = 0;
+    return p;
+}
+
+int estaVazia(Pilha *p){
+    return(p->n == 0);
+    
+}
+
+int estaCheia(Pilha *p){
+    return(p->n == N);
+}
+
+void push(Pilha *p,float v){
+    if(estaCheia(p)){
+        printf("PILHA ESTÁ CHEIA");
+    }else{
+        p->info[p->n] = v;
+        p->n++;
+    }
+}
+
+void imprimePilha(Pilha *p){
+    if(estaVazia(p)){
+        printf("LISTA NÃO CONTÉM NENHUMA ELEMENTO");
+    }else{
+        for(int i = 0; i < p->n ;i++){
+            printf("PILHA [%d] -- VALOR [%f] \n",i,p->info[i]);
+        }
+    }
+}
+
+float pop(Pilha *p){
+    if(estaVazia(p)){
+        printf("PILHA VAZIA");
+        exit(1);
+    }else{
+        float v = p->info[p->n-1];
+        p->n--;
+        return v;
+    }
+}
+
+void liberarPilha(Pilha *p){
+    free(p);
+}
+
+void verTopo(Pilha *p){
+    if(estaVazia(p)){
+        printf("LISTA VAZIA");
+    }else{
+        printf("TOPO [%d] VALOR [%f]",p->n-1,p->info[p->n-1]);
+    }
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "Funcao.h"
+
+int main(int argc, char** argv) {
+    
+    Pilha *l = criaPilha();
+    
+    estaVazia(l);
+    
+    push(l,5.5);
+    push(l,6.4);
+    push(l,7.3);
+    push(l,8.2); 
+    push(l,9.1);
+    push(l,10.0);
+
+    imprimePilha(l);
+    verTopo(l);
+    return (EXIT_SUCCESS);
+}
+
